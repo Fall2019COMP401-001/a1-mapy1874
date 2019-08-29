@@ -60,19 +60,30 @@ public class A1Jedi {
 				// index is the position of the item in array
 				int amount, index;
 				String itemName;
-				
+				//noRepeatedNumCus used for avoid repeated items for the
+				//same customer
+				Boolean[] noRepeatedNumCus = new Boolean[numStoreItems];
+				for (int k = 0; k < numStoreItems; k++) noRepeatedNumCus[k] = false;
+
 				//get every item's info for a customer
 				for (int j = 0; j < numItemsPurch; j++)
 				{
 				    amount = scan.nextInt();
 					itemName = scan.next();
 					index = findStringIndex (itemList, itemName);
+					
 					arrayCounter[index] += amount;
 					//someone bought some items
 					if (amount != 0) 
 					{	
 						bought=true;
-						arrayCounterCus[index]++;
+						//this customer have not bought the item
+						//previously
+						if(!noRepeatedNumCus[index])
+						{
+							arrayCounterCus[index]++;
+							noRepeatedNumCus[index] = true;
+						}
 					}
 				}
 			}
